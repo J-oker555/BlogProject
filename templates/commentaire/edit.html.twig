@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Commentaire{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="text-center">Edit Commentaire</h1>
+
+        {{ form_start(form) }}
+       <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Etat</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.Etat, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <a> (Cocher la case etat pour desactivé le commentaire, il sera donc plus visible pour les utilisateur)</a>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Update</button>
+            
+        </div>
+        {{ form_end(form) }}
+        {{ include('commentaire/_delete_form.html.twig') }}
+
+
+
+    </div>
+{% endblock %}
+

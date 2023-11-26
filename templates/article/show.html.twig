@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+{% if article is not empty %}
+    <h1>Article</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>{{ article.titre }}</td>
+            </tr>
+            <tr>
+                <td>{{ article.contenu }}</td>
+            </tr>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <a class="btn btn-primary" href="{{ path('app_article_edit', {'id': article.id}) }}">Edit</a>&nbsp;&nbsp;
+    {{ include('article/_delete_form.html.twig') }}
+    {% endif %}
+
+     <h3>Commentaire</h3>
+    <table class="table">
+        <tbody>
+        {% if commentaire is not empty %}
+            {% for element in commentaire %}
+                <tr>
+                    <td>
+                        {% if element.Etat == 1 %}
+                            <a>{{ element.auteur.nom}} {{ element.auteur.prenom }} : </a>
+                            <a>{{ element.commentaire }}</a>&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp;
+                            <a> Date publié: {{element.datePublication ? element.datePublication|date('Y-m-d H:i:s') : ''}}</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a class="btn btn-primary" href="{{ path('app_commentaire_edit', {'id': element.id}) }}">Modérer</a>
+                        {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+        <td colspan="1">Pas de commentaire </td>
+        {% endif %}
+
+{% else %}
+                <tr>
+                    <td colspan="1">No records found</td>
+                    <a class="btn btn-primary" href="{{ path('app_article_new') }}">Add new Article </a>
+                </tr>
+            
+{% endif %}
+            <a class="btn btn-primary" href="{{ path('app_commentaire_new') }}">Commenter</a>
+        </tbody>
+</table>
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie: {{ categorie.titre }}{% endblock %}
+
+{% block body %}
+    <h1>{{ categorie.titre }}</h1>
+    {% if articles is not empty %}
+        <ul>
+            {% for article in articles %}
+                {% if article.etat %}
+                <li><a href="{{ path('app_article_show', {'id': article.id}) }}">{{ article.titre }}</a></li>
+                {% else %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('app_article_show', {'id': article.id}) }}">{{ article.titre }}</a> <a> ( Brouillon ) </a></li>
+                {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% elseif articles|filter(article => article.etat == 1)|length == 0 %}
+        <p>No articles found in this category.</p>
+    {% endif %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <p>
+            <a class="btn btn-primary" href="{{ path('app_categorie_edit', {'id': categorie.id}) }}">Modifier Categorie</a>
+            {{ include('categorie/_delete_form.html.twig') }}
+            <a class="btn btn-primary" href="{{ path('app_article_new') }}">Ajouter nouvel article</a>
+        </p>
+    {% endif %}
+{% endblock %}

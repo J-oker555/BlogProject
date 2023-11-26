@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Article{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Create New Article</h1>
+
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.titre) }}
+            {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.contenu) }}
+            {{ form_widget(form.contenu, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.categorie) }}
+            {{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Create Article</button>
+        </div>
+        {{ form_end(form) }}
+        <a> Cocher la case afin directement l'article </a>
+    
+    </div>
+{% endblock %}
