@@ -27,8 +27,8 @@
         {% if commentaire is not empty %}
             {% for element in commentaire %}
                 <tr>
+                    {% if element.Etat == 1 %}
                     <td>
-                        {% if element.Etat == 1 %}
                             <a>{{ element.auteur.nom}} {{ element.auteur.prenom }} : </a>
                             <a>{{ element.commentaire }}</a>&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp;
                             <a> Date publié: {{element.datePublication ? element.datePublication|date('Y-m-d H:i:s') : ''}}</a>
